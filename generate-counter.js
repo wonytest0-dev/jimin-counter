@@ -642,16 +642,13 @@ totalStreams +=
       releases
     };
 
-    if (
-      !fs.existsSync(
-        "daily-snapshot.json"
-      ) ||
-      (
-        snapshot &&
-        snapshot.updated !==
-        updated
-      )
-    ) {
+   if (
+  !snapshot ||
+  !snapshot.updated ||
+  snapshot.updated !==
+  updated
+) {
+
 
       fs.writeFileSync(
         "daily-snapshot.json",
