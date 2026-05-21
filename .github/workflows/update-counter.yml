@@ -1,22 +1,25 @@
-name: Update Counter
+name: Update Spotify Counter
 
 on:
   schedule:
-    - cron: "*/15 * * * *"
+    # 19:00 WIB - 03:00 WIB
+    # WIB = UTC+7
+    - cron: "0,30 12-20 * * *"
+
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
-  update:
+  update-counter:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -24,17 +27,27 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Generate counter
+      - name: Install Playwright
+        run: npx playwright install chromium --with-deps
+
+      - name: Restore Spotify Login
+        run: |
+          cat << 'EOF' > spotify-login.json
+          ${{ secrets.SPOTIFY_LOGIN_JSON }}
+          EOF
+
+      - name: Run Counter
         run: node generate-counter.js
 
-      - name: Commit counter update
+      - name: Commit updated files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git add counter.json
+          git add spotify-snapshot.json
+          git add spotify-history.json
 
-          git diff --cached --quiet || (
-            git commit -m "auto update counter"
-            git push
-          )
+          git diff --staged --quiet || git commit -m "update spotify counter"
+
+          git push
