@@ -98,6 +98,32 @@ function formatNumber(num) {
     .toString();
 }
 
+function getPreviousCounter() {
+
+  try {
+
+    if (
+      fs.existsSync(
+        "previous-counter.json"
+      )
+    ) {
+
+      return JSON.parse(
+        fs.readFileSync(
+          "previous-counter.json",
+          "utf8"
+        )
+      );
+    }
+
+    return null;
+
+  } catch {
+
+    return null;
+  }
+}
+
 async function scrapeSpotifyArtist() {
 
   try {
@@ -219,13 +245,15 @@ async function scrapeSpotifyArtist() {
     };
   }
 }
-
 async function generateCounter() {
 
   try {
 
     const artist =
       await scrapeSpotifyArtist();
+
+    const previous =
+      getPreviousCounter();
 
     const {
       data: html
@@ -381,6 +409,27 @@ async function generateCounter() {
         }
       }
 
+      const previousSong =
+        previous
+        ?.releases
+        ?.flatMap(
+          release =>
+            release.songs
+        )
+        ?.find(
+          song =>
+            song.title ===
+            title
+        );
+
+      const yesterdayDaily =
+        previousSong
+        ?.daily || 0;
+
+      const difference =
+        daily -
+        yesterdayDaily;
+
       songs.push({
 
         title,
@@ -388,6 +437,19 @@ async function generateCounter() {
         streams,
 
         daily,
+
+        yesterdayDaily,
+
+        difference,
+
+        formattedDifference:
+          difference > 0
+            ? `+${formatNumber(
+                difference
+              )}`
+            : formatNumber(
+                difference
+              ),
 
         image,
 
@@ -405,8 +467,7 @@ async function generateCounter() {
 
     const releases =
       [];
-
-    for (
+for (
       const [
         releaseName,
         trackList
@@ -446,6 +507,23 @@ async function generateCounter() {
           0
         );
 
+      const previousRelease =
+        previous
+        ?.releases
+        ?.find(
+          release =>
+            release.title ===
+            releaseName
+        );
+
+      const yesterdayDaily =
+        previousRelease
+        ?.daily || 0;
+
+      const difference =
+        daily -
+        yesterdayDaily;
+
       const info =
         releaseInfo[
           releaseName
@@ -481,6 +559,19 @@ async function generateCounter() {
 
         daily,
 
+        yesterdayDaily,
+
+        difference,
+
+        formattedDifference:
+          difference > 0
+            ? `+${formatNumber(
+                difference
+              )}`
+            : formatNumber(
+                difference
+              ),
+
         formattedDaily:
           formatNumber(
             daily
@@ -500,6 +591,18 @@ async function generateCounter() {
           )
       });
     }
+
+    const previousSummary =
+      previous
+      ?.summary;
+
+    const summaryDifference =
+      totalDaily -
+      (
+        previousSummary
+        ?.totalDaily ||
+        0
+      );
 
     const final = {
 
@@ -523,11 +626,41 @@ async function generateCounter() {
             totalDaily
           ),
 
+        yesterdayTotalDaily:
+          previousSummary
+          ?.totalDaily ||
+          0,
+
+        difference:
+          summaryDifference,
+
+        formattedDifference:
+          summaryDifference >
+          0
+            ? `+${formatNumber(
+                summaryDifference
+              )}`
+            : formatNumber(
+                summaryDifference
+              ),
+
         songCount
       },
 
       releases
     };
+
+    if (
+      fs.existsSync(
+        "counter.json"
+      )
+    ) {
+
+      fs.copyFileSync(
+        "counter.json",
+        "previous-counter.json"
+      );
+    }
 
     fs.writeFileSync(
       "counter.json",
