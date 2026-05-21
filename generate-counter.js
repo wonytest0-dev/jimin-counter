@@ -98,6 +98,32 @@ function formatNumber(num) {
     .toString();
 }
 
+function getDailySnapshot() {
+
+  try {
+
+    if (
+      fs.existsSync(
+        "daily-snapshot.json"
+      )
+    ) {
+
+      return JSON.parse(
+        fs.readFileSync(
+          "daily-snapshot.json",
+          "utf8"
+        )
+      );
+    }
+
+    return null;
+
+  } catch {
+
+    return null;
+  }
+}
+
 async function scrapeSpotifyArtist() {
 
   try {
@@ -146,6 +172,7 @@ async function scrapeSpotifyArtist() {
       }
 
     } catch {
+
       console.log(
         "followers parse failed"
       );
@@ -227,6 +254,9 @@ async function generateCounter() {
     const artist =
       await scrapeSpotifyArtist();
 
+    const snapshot =
+      getDailySnapshot();
+
     const {
       data: html
     } = await axios.get(
@@ -258,6 +288,7 @@ async function generateCounter() {
             );
 
           if (match) {
+
             updated =
               match[1];
           }
@@ -339,7 +370,6 @@ async function generateCounter() {
       let image =
         artist.image;
 
-      // custom single image
       if (
         customSongImages[
           title
@@ -353,7 +383,6 @@ async function generateCounter() {
 
       } else {
 
-        // ambil image dari release
         for (
           const [
             releaseName,
@@ -381,6 +410,23 @@ async function generateCounter() {
         }
       }
 
+      const snapshotSong =
+        snapshot
+        ?.songs
+        ?.find(
+          song =>
+            song.title ===
+            title
+        );
+
+      const yesterdayDaily =
+        snapshotSong
+        ?.daily || 0;
+
+      const difference =
+        daily -
+        yesterdayDaily;
+
       songs.push({
 
         title,
@@ -388,6 +434,19 @@ async function generateCounter() {
         streams,
 
         daily,
+
+        yesterdayDaily,
+
+        difference,
+
+        formattedDifference:
+          difference > 0
+            ? `+${formatNumber(
+                difference
+              )}`
+            : formatNumber(
+                difference
+              ),
 
         image,
 
@@ -457,9 +516,27 @@ async function generateCounter() {
       if (
         info?.image
       ) {
+
         image =
           info.image;
       }
+
+      const previousRelease =
+        snapshot
+        ?.releases
+        ?.find(
+          release =>
+            release.title ===
+            releaseName
+        );
+
+      const yesterdayDaily =
+        previousRelease
+        ?.daily || 0;
+
+      const difference =
+        daily -
+        yesterdayDaily;
 
       releases.push({
 
@@ -480,6 +557,19 @@ async function generateCounter() {
           ),
 
         daily,
+
+        yesterdayDaily,
+
+        difference,
+
+        formattedDifference:
+          difference > 0
+            ? `+${formatNumber(
+                difference
+              )}`
+            : formatNumber(
+                difference
+              ),
 
         formattedDaily:
           formatNumber(
@@ -523,11 +613,63 @@ async function generateCounter() {
             totalDaily
           ),
 
+        yesterdayTotalDaily:
+          snapshot
+          ?.summary
+          ?.totalDaily || 0,
+
+        difference:
+          totalDaily -
+          (
+            snapshot
+            ?.summary
+            ?.totalDaily ||
+            0
+          ),
+
+        formattedDifference:
+          formatNumber(
+            totalDaily -
+            (
+              snapshot
+              ?.summary
+              ?.totalDaily ||
+              0
+            )
+          ),
+
         songCount
       },
 
       releases
     };
+
+    if (
+      !snapshot ||
+      snapshot.updated !==
+      updated
+    ) {
+
+      fs.writeFileSync(
+        "daily-snapshot.json",
+        JSON.stringify(
+          {
+            updated,
+            summary: {
+              totalDaily
+            },
+            songs,
+            releases
+          },
+          null,
+          2
+        )
+      );
+
+      console.log(
+        "📸 snapshot updated"
+      );
+    }
 
     fs.writeFileSync(
       "counter.json",
