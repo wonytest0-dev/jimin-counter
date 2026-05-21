@@ -143,8 +143,7 @@ async function scrapeSpotifyArtist() {
 
     let followers =
       0;
-
-    try {
+try {
 
       const stateMatch =
         html.match(
@@ -358,8 +357,7 @@ async function generateCounter() {
               ""
             )
         ) || 0;
-
-      totalStreams +=
+totalStreams +=
         streams;
 
       totalDaily +=
@@ -645,9 +643,14 @@ async function generateCounter() {
     };
 
     if (
-      !snapshot ||
-      snapshot.updated !==
-      updated
+      !fs.existsSync(
+        "daily-snapshot.json"
+      ) ||
+      (
+        snapshot &&
+        snapshot.updated !==
+        updated
+      )
     ) {
 
       fs.writeFileSync(
@@ -694,4 +697,3 @@ async function generateCounter() {
 }
 
 generateCounter();
-
