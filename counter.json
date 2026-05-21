@@ -13,6 +13,9 @@
     "formattedStreams": "8.31B",
     "totalDaily": 3415765,
     "formattedDaily": "3.4M",
+    "yesterdayTotalDaily": 0,
+    "difference": 3415765,
+    "formattedDifference": "+3.4M",
     "songCount": 34
   },
   "releases": [
@@ -23,6 +26,9 @@
       "streams": 4006624696,
       "formattedStreams": "4.01B",
       "daily": 2355657,
+      "yesterdayDaily": 0,
+      "difference": 2355657,
+      "formattedDifference": "+2.4M",
       "formattedDaily": "2.4M",
       "songCount": 10,
       "songs": [
@@ -30,6 +36,9 @@
           "title": "Who",
           "streams": 2417736711,
           "daily": 1554930,
+          "yesterdayDaily": 0,
+          "difference": 1554930,
+          "formattedDifference": "+1.6M",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…ee6bfad3c7aac357dbb5082_ohnpne.jpg",
           "formattedStreams": "2.42B",
           "formattedDaily": "1.6M"
@@ -38,6 +47,9 @@
           "title": "Be Mine",
           "streams": 382652924,
           "daily": 253632,
+          "yesterdayDaily": 0,
+          "difference": 253632,
+          "formattedDifference": "+253.6K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…ee6bfad3c7aac357dbb5082_ohnpne.jpg",
           "formattedStreams": "382.7M",
           "formattedDaily": "253.6K"
@@ -46,6 +58,9 @@
           "title": "Closer Than This",
           "streams": 327897752,
           "daily": 97996,
+          "yesterdayDaily": 0,
+          "difference": 97996,
+          "formattedDifference": "+98K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…ee6bfad3c7aac357dbb5082_ohnpne.jpg",
           "formattedStreams": "327.9M",
           "formattedDaily": "98K"
@@ -54,6 +69,9 @@
           "title": "Smeraldo Garden Marching Band (feat. Loco)",
           "streams": 270119247,
           "daily": 117275,
+          "yesterdayDaily": 0,
+          "difference": 117275,
+          "formattedDifference": "+117.3K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…ee6bfad3c7aac357dbb5082_ohnpne.jpg",
           "formattedStreams": "270.1M",
           "formattedDaily": "117.3K"
@@ -62,6 +80,9 @@
           "title": "Slow Dance (feat. Sofia Carson)",
           "streams": 142904141,
           "daily": 87440,
+          "yesterdayDaily": 0,
+          "difference": 87440,
+          "formattedDifference": "+87.4K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…ee6bfad3c7aac357dbb5082_ohnpne.jpg",
           "formattedStreams": "142.9M",
           "formattedDaily": "87.4K"
@@ -70,6 +91,9 @@
           "title": "Rebirth (Intro)",
           "streams": 135954796,
           "daily": 76946,
+          "yesterdayDaily": 0,
+          "difference": 76946,
+          "formattedDifference": "+76.9K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…ee6bfad3c7aac357dbb5082_ohnpne.jpg",
           "formattedStreams": "136M",
           "formattedDaily": "76.9K"
@@ -78,6 +102,9 @@
           "title": "Interlude : Showtime",
           "streams": 121449486,
           "daily": 72606,
+          "yesterdayDaily": 0,
+          "difference": 72606,
+          "formattedDifference": "+72.6K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…ee6bfad3c7aac357dbb5082_ohnpne.jpg",
           "formattedStreams": "121.4M",
           "formattedDaily": "72.6K"
@@ -86,6 +113,9 @@
           "title": "Who (Rock Remix)",
           "streams": 74819958,
           "daily": 42079,
+          "yesterdayDaily": 0,
+          "difference": 42079,
+          "formattedDifference": "+42.1K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…ee6bfad3c7aac357dbb5082_ohnpne.jpg",
           "formattedStreams": "74.8M",
           "formattedDaily": "42.1K"
@@ -94,6 +124,9 @@
           "title": "Who (Acoustic Remix)",
           "streams": 73308359,
           "daily": 34551,
+          "yesterdayDaily": 0,
+          "difference": 34551,
+          "formattedDifference": "+34.6K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…ee6bfad3c7aac357dbb5082_ohnpne.jpg",
           "formattedStreams": "73.3M",
           "formattedDaily": "34.6K"
@@ -102,6 +135,9 @@
           "title": "Who (Instrumental)",
           "streams": 59781322,
           "daily": 18202,
+          "yesterdayDaily": 0,
+          "difference": 18202,
+          "formattedDifference": "+18.2K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…ee6bfad3c7aac357dbb5082_ohnpne.jpg",
           "formattedStreams": "59.8M",
           "formattedDaily": "18.2K"
@@ -115,6 +151,9 @@
       "streams": 4006624696,
       "formattedStreams": "4.01B",
       "daily": 2355657,
+      "yesterdayDaily": 0,
+      "difference": 2355657,
+      "formattedDifference": "+2.4M",
       "formattedDaily": "2.4M",
       "songCount": 10,
       "songs": [
@@ -122,6 +161,9 @@
           "title": "Who",
           "streams": 2417736711,
           "daily": 1554930,
+          "yesterdayDaily": 0,
+          "difference": 1554930,
+          "formattedDifference": "+1.6M",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…ee6bfad3c7aac357dbb5082_ohnpne.jpg",
           "formattedStreams": "2.42B",
           "formattedDaily": "1.6M"
@@ -130,6 +172,9 @@
           "title": "Be Mine",
           "streams": 382652924,
           "daily": 253632,
+          "yesterdayDaily": 0,
+          "difference": 253632,
+          "formattedDifference": "+253.6K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…ee6bfad3c7aac357dbb5082_ohnpne.jpg",
           "formattedStreams": "382.7M",
           "formattedDaily": "253.6K"
@@ -138,6 +183,9 @@
           "title": "Closer Than This",
           "streams": 327897752,
           "daily": 97996,
+          "yesterdayDaily": 0,
+          "difference": 97996,
+          "formattedDifference": "+98K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…ee6bfad3c7aac357dbb5082_ohnpne.jpg",
           "formattedStreams": "327.9M",
           "formattedDaily": "98K"
@@ -146,6 +194,9 @@
           "title": "Smeraldo Garden Marching Band (feat. Loco)",
           "streams": 270119247,
           "daily": 117275,
+          "yesterdayDaily": 0,
+          "difference": 117275,
+          "formattedDifference": "+117.3K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…ee6bfad3c7aac357dbb5082_ohnpne.jpg",
           "formattedStreams": "270.1M",
           "formattedDaily": "117.3K"
@@ -154,6 +205,9 @@
           "title": "Slow Dance (feat. Sofia Carson)",
           "streams": 142904141,
           "daily": 87440,
+          "yesterdayDaily": 0,
+          "difference": 87440,
+          "formattedDifference": "+87.4K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…ee6bfad3c7aac357dbb5082_ohnpne.jpg",
           "formattedStreams": "142.9M",
           "formattedDaily": "87.4K"
@@ -162,6 +216,9 @@
           "title": "Rebirth (Intro)",
           "streams": 135954796,
           "daily": 76946,
+          "yesterdayDaily": 0,
+          "difference": 76946,
+          "formattedDifference": "+76.9K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…ee6bfad3c7aac357dbb5082_ohnpne.jpg",
           "formattedStreams": "136M",
           "formattedDaily": "76.9K"
@@ -170,6 +227,9 @@
           "title": "Interlude : Showtime",
           "streams": 121449486,
           "daily": 72606,
+          "yesterdayDaily": 0,
+          "difference": 72606,
+          "formattedDifference": "+72.6K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…ee6bfad3c7aac357dbb5082_ohnpne.jpg",
           "formattedStreams": "121.4M",
           "formattedDaily": "72.6K"
@@ -178,6 +238,9 @@
           "title": "Who (Rock Remix)",
           "streams": 74819958,
           "daily": 42079,
+          "yesterdayDaily": 0,
+          "difference": 42079,
+          "formattedDifference": "+42.1K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…ee6bfad3c7aac357dbb5082_ohnpne.jpg",
           "formattedStreams": "74.8M",
           "formattedDaily": "42.1K"
@@ -186,6 +249,9 @@
           "title": "Who (Acoustic Remix)",
           "streams": 73308359,
           "daily": 34551,
+          "yesterdayDaily": 0,
+          "difference": 34551,
+          "formattedDifference": "+34.6K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…ee6bfad3c7aac357dbb5082_ohnpne.jpg",
           "formattedStreams": "73.3M",
           "formattedDaily": "34.6K"
@@ -194,6 +260,9 @@
           "title": "Who (Instrumental)",
           "streams": 59781322,
           "daily": 18202,
+          "yesterdayDaily": 0,
+          "difference": 18202,
+          "formattedDifference": "+18.2K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…ee6bfad3c7aac357dbb5082_ohnpne.jpg",
           "formattedStreams": "59.8M",
           "formattedDaily": "18.2K"
@@ -207,6 +276,9 @@
       "streams": 3798715057,
       "formattedStreams": "3.80B",
       "daily": 2260825,
+      "yesterdayDaily": 0,
+      "difference": 2260825,
+      "formattedDifference": "+2.3M",
       "formattedDaily": "2.3M",
       "songCount": 7,
       "songs": [
@@ -214,6 +286,9 @@
           "title": "Who",
           "streams": 2417736711,
           "daily": 1554930,
+          "yesterdayDaily": 0,
+          "difference": 1554930,
+          "formattedDifference": "+1.6M",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…ee6bfad3c7aac357dbb5082_ohnpne.jpg",
           "formattedStreams": "2.42B",
           "formattedDaily": "1.6M"
@@ -222,6 +297,9 @@
           "title": "Be Mine",
           "streams": 382652924,
           "daily": 253632,
+          "yesterdayDaily": 0,
+          "difference": 253632,
+          "formattedDifference": "+253.6K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…ee6bfad3c7aac357dbb5082_ohnpne.jpg",
           "formattedStreams": "382.7M",
           "formattedDaily": "253.6K"
@@ -230,6 +308,9 @@
           "title": "Closer Than This",
           "streams": 327897752,
           "daily": 97996,
+          "yesterdayDaily": 0,
+          "difference": 97996,
+          "formattedDifference": "+98K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…ee6bfad3c7aac357dbb5082_ohnpne.jpg",
           "formattedStreams": "327.9M",
           "formattedDaily": "98K"
@@ -238,6 +319,9 @@
           "title": "Smeraldo Garden Marching Band (feat. Loco)",
           "streams": 270119247,
           "daily": 117275,
+          "yesterdayDaily": 0,
+          "difference": 117275,
+          "formattedDifference": "+117.3K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…ee6bfad3c7aac357dbb5082_ohnpne.jpg",
           "formattedStreams": "270.1M",
           "formattedDaily": "117.3K"
@@ -246,6 +330,9 @@
           "title": "Slow Dance (feat. Sofia Carson)",
           "streams": 142904141,
           "daily": 87440,
+          "yesterdayDaily": 0,
+          "difference": 87440,
+          "formattedDifference": "+87.4K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…ee6bfad3c7aac357dbb5082_ohnpne.jpg",
           "formattedStreams": "142.9M",
           "formattedDaily": "87.4K"
@@ -254,6 +341,9 @@
           "title": "Rebirth (Intro)",
           "streams": 135954796,
           "daily": 76946,
+          "yesterdayDaily": 0,
+          "difference": 76946,
+          "formattedDifference": "+76.9K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…ee6bfad3c7aac357dbb5082_ohnpne.jpg",
           "formattedStreams": "136M",
           "formattedDaily": "76.9K"
@@ -262,6 +352,9 @@
           "title": "Interlude : Showtime",
           "streams": 121449486,
           "daily": 72606,
+          "yesterdayDaily": 0,
+          "difference": 72606,
+          "formattedDifference": "+72.6K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…ee6bfad3c7aac357dbb5082_ohnpne.jpg",
           "formattedStreams": "121.4M",
           "formattedDaily": "72.6K"
@@ -275,6 +368,9 @@
       "streams": 2765909373,
       "formattedStreams": "2.77B",
       "daily": 665005,
+      "yesterdayDaily": 0,
+      "difference": 665005,
+      "formattedDifference": "+665K",
       "formattedDaily": "665K",
       "songCount": 6,
       "songs": [
@@ -282,6 +378,9 @@
           "title": "Like Crazy",
           "streams": 1453305494,
           "daily": 292212,
+          "yesterdayDaily": 0,
+          "difference": 292212,
+          "formattedDifference": "+292.2K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…60167f5283d41d587939beb_eedotk.jpg",
           "formattedStreams": "1.45B",
           "formattedDaily": "292.2K"
@@ -290,6 +389,9 @@
           "title": "Set Me Free Pt.2",
           "streams": 471658213,
           "daily": 175785,
+          "yesterdayDaily": 0,
+          "difference": 175785,
+          "formattedDifference": "+175.8K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…60167f5283d41d587939beb_eedotk.jpg",
           "formattedStreams": "471.7M",
           "formattedDaily": "175.8K"
@@ -298,6 +400,9 @@
           "title": "Like Crazy (English Version)",
           "streams": 397307685,
           "daily": 75388,
+          "yesterdayDaily": 0,
+          "difference": 75388,
+          "formattedDifference": "+75.4K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…60167f5283d41d587939beb_eedotk.jpg",
           "formattedStreams": "397.3M",
           "formattedDaily": "75.4K"
@@ -306,6 +411,9 @@
           "title": "Face-off",
           "streams": 165487845,
           "daily": 50917,
+          "yesterdayDaily": 0,
+          "difference": 50917,
+          "formattedDifference": "+50.9K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…60167f5283d41d587939beb_eedotk.jpg",
           "formattedStreams": "165.5M",
           "formattedDaily": "50.9K"
@@ -314,6 +422,9 @@
           "title": "Alone",
           "streams": 152645754,
           "daily": 49635,
+          "yesterdayDaily": 0,
+          "difference": 49635,
+          "formattedDifference": "+49.6K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…60167f5283d41d587939beb_eedotk.jpg",
           "formattedStreams": "152.6M",
           "formattedDaily": "49.6K"
@@ -322,6 +433,9 @@
           "title": "Interlude : Dive",
           "streams": 125504382,
           "daily": 21068,
+          "yesterdayDaily": 0,
+          "difference": 21068,
+          "formattedDifference": "+21.1K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…60167f5283d41d587939beb_eedotk.jpg",
           "formattedStreams": "125.5M",
           "formattedDaily": "21.1K"
@@ -335,6 +449,9 @@
       "streams": 811750691,
       "formattedStreams": "811.8M",
       "daily": 226609,
+      "yesterdayDaily": 0,
+      "difference": 226609,
+      "formattedDifference": "+226.6K",
       "formattedDaily": "226.6K",
       "songCount": 5,
       "songs": [
@@ -342,6 +459,9 @@
           "title": "With you",
           "streams": 323295350,
           "daily": 53445,
+          "yesterdayDaily": 0,
+          "difference": 53445,
+          "formattedDifference": "+53.4K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…410415bb6bb95d7772a1fa5_iohiiu.jpg",
           "formattedStreams": "323.3M",
           "formattedDaily": "53.4K"
@@ -350,6 +470,9 @@
           "title": "VIBE (feat. Jimin of BTS)",
           "streams": 273374167,
           "daily": 69955,
+          "yesterdayDaily": 0,
+          "difference": 69955,
+          "formattedDifference": "+70K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…d0877081d1bcf60b5bd1f99_wkwr1n.jpg",
           "formattedStreams": "273.4M",
           "formattedDaily": "70K"
@@ -358,6 +481,9 @@
           "title": "Promise",
           "streams": 144280135,
           "daily": 89479,
+          "yesterdayDaily": 0,
+          "difference": 89479,
+          "formattedDifference": "+89.5K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…91139159a27703e662441d9_zkpxcf.jpg",
           "formattedStreams": "144.3M",
           "formattedDaily": "89.5K"
@@ -366,6 +492,9 @@
           "title": "Christmas Love",
           "streams": 49003591,
           "daily": 12204,
+          "yesterdayDaily": 0,
+          "difference": 12204,
+          "formattedDifference": "+12.2K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/fl_preserve_transparency/v1779332586/0c49ad930e6ed814d8adf6d8bbdce56e_ydvbsw.jpg",
           "formattedStreams": "49M",
           "formattedDaily": "12.2K"
@@ -374,6 +503,9 @@
           "title": "With you - Instrumental",
           "streams": 21797448,
           "daily": 1526,
+          "yesterdayDaily": 0,
+          "difference": 1526,
+          "formattedDifference": "+1.5K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…410415bb6bb95d7772a1fa5_iohiiu.jpg",
           "formattedStreams": "21.8M",
           "formattedDaily": "1.5K"
@@ -387,6 +519,9 @@
       "streams": 267263938,
       "formattedStreams": "267.3M",
       "daily": 45752,
+      "yesterdayDaily": 0,
+      "difference": 45752,
+      "formattedDifference": "+45.8K",
       "formattedDaily": "45.8K",
       "songCount": 5,
       "songs": [
@@ -394,6 +529,9 @@
           "title": "Angel Pt. 1 (feat. Kodak Black, NLE Choppa, Jimin of BTS, JVKE & Muni Long)",
           "streams": 244885835,
           "daily": 36807,
+          "yesterdayDaily": 0,
+          "difference": 36807,
+          "formattedDifference": "+36.8K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…fb681c56ef507967cd6541f_konisj.jpg",
           "formattedStreams": "244.9M",
           "formattedDaily": "36.8K"
@@ -402,6 +540,9 @@
           "title": "Angel Pt. 2 - Acoustic Version",
           "streams": 7883588,
           "daily": 4099,
+          "yesterdayDaily": 0,
+          "difference": 4099,
+          "formattedDifference": "+4.1K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…fb681c56ef507967cd6541f_konisj.jpg",
           "formattedStreams": "7.9M",
           "formattedDaily": "4.1K"
@@ -410,6 +551,9 @@
           "title": "Angel (feat. Muni Long, JVKE, NLE Choppa) (Anniversary Edition)",
           "streams": 5462656,
           "daily": 2728,
+          "yesterdayDaily": 0,
+          "difference": 2728,
+          "formattedDifference": "+2.7K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…fb681c56ef507967cd6541f_konisj.jpg",
           "formattedStreams": "5.5M",
           "formattedDaily": "2.7K"
@@ -418,6 +562,9 @@
           "title": "Angel Pt. 1 (feat. Jimin of BTS, JVKE & Muni Long) - Sped Up",
           "streams": 4967896,
           "daily": 549,
+          "yesterdayDaily": 0,
+          "difference": 549,
+          "formattedDifference": "+549",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…fb681c56ef507967cd6541f_konisj.jpg",
           "formattedStreams": "5M",
           "formattedDaily": "549"
@@ -426,6 +573,9 @@
           "title": "Angel Pt. 2 - Sped Up",
           "streams": 4063963,
           "daily": 1569,
+          "yesterdayDaily": 0,
+          "difference": 1569,
+          "formattedDifference": "+1.6K",
           "image": "https://res.cloudinary.com/ddh2uwdlk/image/upload/…fb681c56ef507967cd6541f_konisj.jpg",
           "formattedStreams": "4.1M",
           "formattedDaily": "1.6K"
