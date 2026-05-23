@@ -1,520 +1,614 @@
-const fs = require("fs");
-const axios = require("axios");
-const { chromium } = require("playwright");
+const fs=require("fs");
+const axios=require("axios");
+const {chromium}=require("playwright");
 
-const ARTIST_ID = "1oSPZhvZMIrWW5I41kPkkY";
-const ARTIST_URI = `spotify:artist:${ARTIST_ID}`;
-const SENTINEL_SONG = "Who";
+const ARTIST_ID="1oSPZhvZMIrWW5I41kPkkY";
+const ARTIST_URI=`spotify:artist:${ARTIST_ID}`;
+const SENTINEL_SONG="Who";
 
-const SNAPSHOT_FILE = "spotify-snapshot.json";
-const HISTORY_FILE = "spotify-history.json";
-const COUNTER_FILE = "counter.json";
+const SNAPSHOT_FILE="spotify-snapshot.json";
+const HISTORY_FILE="spotify-history.json";
+const COUNTER_FILE="counter.json";
 
-const DISCOGRAPHY_HASH =
-  "5e07d323febb57b4a56a42abbf781490e58764aa45feb6e3dc0591564fc56599";
+const DISCOGRAPHY_HASH=
+"5e07d323febb57b4a56a42abbf781490e58764aa45feb6e3dc0591564fc56599";
 
-const TRACKS_HASH =
-  "b9bfabef66ed756e5e13f68a942deb60bd4125ec1f1be8cc42769dc0259b4b10";
+const TRACKS_HASH=
+"b9bfabef66ed756e5e13f68a942deb60bd4125ec1f1be8cc42769dc0259b4b10";
 
-function formatNumber(num) {
-  if (!num) return "0";
+function formatNumber(num){
 
-  if (num >= 1_000_000_000) {
-    return (
-      (num / 1_000_000_000)
-        .toFixed(2)
-        .replace(/\.00$/, "") + "B"
-    );
-  }
+if(!num)return"0";
 
-  if (num >= 1_000_000) {
-    return (
-      (num / 1_000_000)
-        .toFixed(1)
-        .replace(/\.0$/, "") + "M"
-    );
-  }
-
-  if (num >= 1_000) {
-    return (
-      (num / 1_000)
-        .toFixed(1)
-        .replace(/\.0$/, "") + "K"
-    );
-  }
-
-  return num.toString();
+if(num>=1_000_000_000){
+return(
+(num/1_000_000_000)
+.toFixed(2)
+.replace(/\.00$/,"")
+)+"B";
 }
 
-function readJSON(path, fallback = null) {
-  try {
-    if (fs.existsSync(path)) {
-      return JSON.parse(
-        fs.readFileSync(path, "utf8")
-      );
-    }
-
-    return fallback;
-  } catch {
-    return fallback;
-  }
+if(num>=1_000_000){
+return(
+(num/1_000_000)
+.toFixed(1)
+.replace(/\.0$/,"")
+)+"M";
 }
 
-function saveJSON(path, data) {
-  fs.writeFileSync(
-    path,
-    JSON.stringify(data, null, 2)
-  );
+if(num>=1_000){
+return(
+(num/1_000)
+.toFixed(1)
+.replace(/\.0$/,"")
+)+"K";
 }
 
-function getTodayDate() {
-  return new Date().toLocaleDateString(
-    "en-CA",
-    { timeZone: "Asia/Jakarta" }
-  );
+return num.toString();
+
 }
 
-async function getSpotifyAuth() {
-  const browser =
-    await chromium.launch({
-      headless: true
-    });
+function readJSON(
+path,
+fallback=null
+){
 
-  const context =
-    await browser.newContext({
-      storageState:
-        "./spotify-login.json"
-    });
+try{
 
-  const page =
-    await context.newPage();
+if(
+fs.existsSync(path)
+){
 
-  let authToken = "";
-  let clientToken = "";
+return JSON.parse(
+fs.readFileSync(
+path,
+"utf8"
+)
+);
 
-  page.on("request", request => {
-    if (
-      request.url().includes(
-        "api-partner.spotify.com"
-      )
-    ) {
-      const headers =
-        request.headers();
-
-      const auth =
-        headers["authorization"];
-
-      const client =
-        headers["client-token"];
-
-      if (
-        auth?.startsWith(
-          "Bearer"
-        )
-      ) {
-        authToken = auth;
-      }
-
-      if (client) {
-        clientToken = client;
-      }
-    }
-  });
-
-  console.log(
-    "🌐 opening spotify..."
-  );
-
-  await page.goto(
-    "https://open.spotify.com",
-    {
-      waitUntil:
-        "domcontentloaded"
-    }
-  );
-
-  await page.waitForTimeout(
-    5000
-  );
-
-  console.log(
-    "🎧 opening artist..."
-  );
-
-  await page.goto(
-    `https://open.spotify.com/artist/${ARTIST_ID}`,
-    {
-      waitUntil:
-        "networkidle"
-    }
-  );
-
-  await page.waitForTimeout(
-    8000
-  );
-
-  await browser.close();
-
-  return {
-    authToken,
-    clientToken
-  };
 }
+
+return fallback;
+
+}catch{
+
+return fallback;
+
+}
+
+}
+
+function saveJSON(
+path,
+data
+){
+
+fs.writeFileSync(
+path,
+JSON.stringify(
+data,
+null,
+2
+)
+);
+
+}
+
+function getTodayDate(){
+
+return new Date()
+.toLocaleDateString(
+"en-CA",
+{
+timeZone:
+"Asia/Jakarta"
+}
+);
+
+}
+
+async function getSpotifyAuth(){
+
+const browser=
+await chromium.launch({
+headless:true
+});
+
+const context=
+await browser.newContext({
+storageState:
+"./spotify-login.json"
+});
+
+const page=
+await context.newPage();
+
+let authToken="";
+let clientToken="";
+
+page.on(
+"request",
+request=>{
+
+if(
+request.url().includes(
+"api-partner.spotify.com"
+)
+){
+
+const headers=
+request.headers();
+
+const auth=
+headers[
+"authorization"
+];
+
+const client=
+headers[
+"client-token"
+];
+
+if(
+auth?.startsWith(
+"Bearer"
+)
+){
+authToken=auth;
+}
+
+if(client){
+clientToken=client;
+}
+
+}
+
+}
+);
+
+console.log(
+"🌐 opening spotify..."
+);
+
+await page.goto(
+"https://open.spotify.com",
+{
+waitUntil:
+"domcontentloaded"
+}
+);
+
+await page.waitForTimeout(
+5000
+);
+
+console.log(
+"🎧 opening artist..."
+);
+
+await page.goto(
+`https://open.spotify.com/artist/${ARTIST_ID}`,
+{
+waitUntil:
+"networkidle"
+}
+);
+
+await page.waitForTimeout(
+8000
+);
+
+await browser.close();
+
+return{
+authToken,
+clientToken
+};
+
+}
+
 async function spotifyQuery(
-  authToken,
-  clientToken,
-  operationName,
-  variables,
-  hash
-) {
-  const response =
-    await axios.post(
-      "https://api-partner.spotify.com/pathfinder/v2/query",
-      {
-        operationName,
-        variables,
-        extensions: {
-          persistedQuery: {
-            version: 1,
-            sha256Hash: hash
-          }
-        }
-      },
-      {
-        headers: {
-          accept: "application/json",
-          authorization: authToken,
-          "client-token": clientToken,
-          "app-platform": "WebPlayer",
-          "content-type":
-            "application/json",
-          origin:
-            "https://open.spotify.com",
-          referer:
-            "https://open.spotify.com/",
-          "spotify-app-version":
-            "1.2.91.173.g0dd46a9b",
-          "user-agent":
-            "Mozilla/5.0"
-        }
-      }
-    );
+authToken,
+clientToken,
+operationName,
+variables,
+hash
+){
 
-  return response.data;
+const response=
+await axios.post(
+"https://api-partner.spotify.com/pathfinder/v2/query",
+{
+operationName,
+variables,
+extensions:{
+persistedQuery:{
+version:1,
+sha256Hash:hash
+}
+}
+},
+{
+headers:{
+accept:
+"application/json",
+authorization:
+authToken,
+"client-token":
+clientToken,
+"app-platform":
+"WebPlayer",
+"content-type":
+"application/json",
+origin:
+"https://open.spotify.com",
+referer:
+"https://open.spotify.com/",
+"spotify-app-version":
+"1.2.91.173.g0dd46a9b",
+"user-agent":
+"Mozilla/5.0"
+}
+}
+);
+
+return response.data;
+
 }
 
 async function getAllReleases(
-  authToken,
-  clientToken
-) {
-  const discography =
-    await spotifyQuery(
-      authToken,
-      clientToken,
-      "queryArtistDiscographyAll",
-      {
-        uri: ARTIST_URI,
-        offset: 0,
-        limit: 100,
-        order: "DATE_DESC"
-      },
-      DISCOGRAPHY_HASH
-    );
+authToken,
+clientToken
+){
 
-  return (
-    discography?.data
-      ?.artistUnion
-      ?.discography
-      ?.all
-      ?.items
-      ?.flatMap(
-        item =>
-          item.releases.items
-      ) || []
-  );
+const discography=
+await spotifyQuery(
+authToken,
+clientToken,
+"queryArtistDiscographyAll",
+{
+uri:
+ARTIST_URI,
+offset:0,
+limit:100,
+order:
+"DATE_DESC"
+},
+DISCOGRAPHY_HASH
+);
+
+return(
+discography
+?.data
+?.artistUnion
+?.discography
+?.all
+?.items
+?.flatMap(
+item=>
+item.releases.items
+)||[]
+);
+
 }
 
 async function getReleaseTracks(
-  authToken,
-  clientToken,
-  release
-) {
-  const data =
-    await spotifyQuery(
-      authToken,
-      clientToken,
-      "queryAlbumTracks",
-      {
-        uri: release.uri,
-        offset: 0,
-        limit: 300
-      },
-      TRACKS_HASH
-    );
+authToken,
+clientToken,
+release
+){
 
-  return (
-    data?.data
-      ?.albumUnion
-      ?.tracksV2
-      ?.items
-      ?.map(item => ({
-        title:
-          item.track.name,
+const data=
+await spotifyQuery(
+authToken,
+clientToken,
+"queryAlbumTracks",
+{
+uri:
+release.uri,
+offset:0,
+limit:300
+},
+TRACKS_HASH
+);
 
-        streams: Number(
-          item.track.playcount || 0
-        ),
+return(
+data
+?.data
+?.albumUnion
+?.tracksV2
+?.items
+?.map(
+item=>({
 
-        trackId:
-          item.track.uri.split(
-            ":"
-          )[2],
+title:
+item.track.name,
 
-        release:
-          release.name,
+streams:Number(
+item.track
+.playcount||0
+),
 
-        releaseType:
-          release.type,
+trackId:
+item.track.uri
+.split(":")[2],
 
-        image:
-          release.coverArt
-            ?.sources?.[0]
-            ?.url || null
-      })) || []
-  );
+release:
+release.name,
+
+releaseType:
+release.type,
+
+image:
+release
+.coverArt
+?.sources?.[0]
+?.url||null
+
+})
+)||[]
+);
+
 }
-
 async function getArtistStats(
-  authToken,
-  clientToken
-) {
-  const data =
-    await spotifyQuery(
-      authToken,
-      clientToken,
-      "queryNpvArtist",
-      {
-        artistUri:
-          ARTIST_URI,
+authToken,
+clientToken
+){
 
-        trackUri:
-          "spotify:track:7tI8dRuH2Yc6RuoTjxo4dU",
+const data=
+await spotifyQuery(
+authToken,
+clientToken,
+"queryNpvArtist",
+{
+artistUri:
+ARTIST_URI,
 
-        contributorsLimit: 10,
-        contributorsOffset: 0,
-        enableRelatedVideos: false,
-        enableRelatedAudioTracks: false
-      },
-      "b2cedf7ed0f29c713567d97ed69b848c8387294edfe58a0e439a3a5669cc27bb"
-    );
+trackUri:
+"spotify:track:7tI8dRuH2Yc6RuoTjxo4dU",
 
-  return (
-    data?.data
-      ?.artistUnion
-      ?.stats || {}
-  );
+contributorsLimit:10,
+contributorsOffset:0,
+enableRelatedVideos:false,
+enableRelatedAudioTracks:false
+},
+"b2cedf7ed0f29c713567d97ed69b848c8387294edfe58a0e439a3a5669cc27bb"
+);
+
+return(
+data
+?.data
+?.artistUnion
+?.stats||{}
+);
+
 }
 
 function getSentinelSong(
-  songs
-) {
-  return songs.find(
-    song =>
-      song.title ===
-        SENTINEL_SONG &&
-      song.release ===
-        "MUSE"
-  );
+songs
+){
+
+return songs.find(
+song=>
+song.title===
+SENTINEL_SONG&&
+song.release===
+"MUSE"
+);
+
 }
 
 function getPreviousSong(
-  snapshot,
-  title
-) {
-  return (
-    snapshot?.songs?.find(
-      song =>
-        song.title ===
-        title
-    ) || null
-  );
+snapshot,
+title
+){
+
+return(
+snapshot
+?.songs
+?.find(
+song=>
+song.title===
+title
+)||null
+);
+
 }
 
-async function generateCounter() {
-  try {
-    console.log(
-      "🔥 getting spotify auth..."
-    );
+async function generateCounter(){
 
-    const {
-      authToken,
-      clientToken
-    } =
-      await getSpotifyAuth();
+try{
 
-    if (!authToken) {
-      throw new Error(
-        "No Spotify auth token found"
-      );
-    }
+console.log(
+"🔥 getting spotify auth..."
+);
 
-    if (!clientToken) {
-      throw new Error(
-        "No client token found"
-      );
-    }
+const{
+authToken,
+clientToken
+}=
+await getSpotifyAuth();
 
-    console.log(
-      "✅ auth found"
-    );
-    console.log(
-      "👀 checking Who..."
-    );
+if(!authToken){
+throw new Error(
+"No Spotify auth token found"
+);
+}
 
-    const museRelease = {
-      uri:
-        "spotify:album:15XcLhiVMlSOipUddTNDnr",
-      name: "MUSE",
-      type: "ALBUM",
-      coverArt: {
-        sources: []
-      }
-    };
+if(!clientToken){
+throw new Error(
+"No client token found"
+);
+}
 
-    const whoTracks =
-      await getReleaseTracks(
-        authToken,
-        clientToken,
-        museRelease
-      );
+console.log(
+"✅ auth found"
+);
 
-    const sentinelSong =
-      whoTracks.find(
-        track =>
-          track.title ===
-          "Who"
-      );
+console.log(
+"👀 checking Who..."
+);
 
-    if (!sentinelSong) {
-      throw new Error(
-        "Who not found"
-      );
-    }
+const museRelease={
+uri:
+"spotify:album:15XcLhiVMlSOipUddTNDnr",
+name:
+"MUSE",
+type:
+"ALBUM",
+coverArt:{
+sources:[]
+}
+};
 
-    const snapshot =
-      readJSON(
-        SNAPSHOT_FILE
-      );
+const whoTracks=
+await getReleaseTracks(
+authToken,
+clientToken,
+museRelease
+);
 
-    const history =
-      readJSON(
-        HISTORY_FILE,
-        []
-      );
+const sentinelSong=
+whoTracks.find(
+track=>
+track.title===
+"Who"
+);
 
-    if (
-      snapshot
-        ?.sentinel
-        ?.streams ===
-      sentinelSong
-        ?.streams
-    ) {
-      console.log(
-        "⏸ Spotify not updated yet"
-      );
+if(!sentinelSong){
+throw new Error(
+"Who not found"
+);
+}
 
-      return;
-    }
+const snapshot=
+readJSON(
+SNAPSHOT_FILE
+);
 
-    console.log(
-      "🚀 Spotify updated!"
-    );
+const history=
+readJSON(
+HISTORY_FILE,
+[]
+);
 
-    const artistStats =
-      await getArtistStats(
-        authToken,
-        clientToken
-      );
+if(
+snapshot
+?.sentinel
+?.streams===
+sentinelSong
+?.streams
+){
 
-    const releases =
-      await getAllReleases(
-        authToken,
-        clientToken
-      );
+console.log(
+"⏸ Spotify not updated yet"
+);
 
-    let allSongs = [];
+return;
 
-    for (const release of releases) {
-      console.log(
-        `🎧 ${release.name}`
-      );
+}
 
-      const tracks =
-        await getReleaseTracks(
-          authToken,
-          clientToken,
-          release
-        );
+console.log(
+"🚀 Spotify updated!"
+);
 
-      allSongs.push(
-        ...tracks
-      );
-    }
+const artistStats=
+await getArtistStats(
+authToken,
+clientToken
+);
 
-    const processedSongs =
-      allSongs.map(song => {
-        const previous =
-          getPreviousSong(
-            snapshot,
-            song.title
-          );
+const releases=
+await getAllReleases(
+authToken,
+clientToken
+);
 
-        const previousStreams =
-          previous?.streams ||
-          song.streams;
+let allSongs=[];
 
-        const dailyGain =
-          song.streams -
-          previousStreams;
+for(
+const release
+of releases
+){
 
-        const yesterdayGain =
-          previous?.dailyGain ||
-          0;
+console.log(
+`🎧 ${release.name}`
+);
 
-        const gainDifference =
-          dailyGain -
-          yesterdayGain;
+const tracks=
+await getReleaseTracks(
+authToken,
+clientToken,
+release
+);
 
-        return {
-          ...song,
-          previousStreams,
-          dailyGain,
-          yesterdayGain,
-          gainDifference,
+allSongs.push(
+...tracks
+);
 
-          formattedStreams:
-            formatNumber(
-              song.streams
-            ),
+}
 
-          formattedDailyGain:
-            dailyGain > 0
-              ? `+${formatNumber(
-                  dailyGain
-                )}`
-              : "0",
+const processedSongs=
+allSongs.map(
+song=>{
 
-          formattedGainDifference:
-            gainDifference > 0
-              ? `+${formatNumber(
-                  gainDifference
-                )}`
-              : formatNumber(
-                  gainDifference
-                )
-        };
-      });
+const previous=
+getPreviousSong(
+snapshot,
+song.title
+);
 
+const previousStreams=
+previous
+?.streams||
+song.streams;
+
+const dailyGain=
+song.streams-
+previousStreams;
+
+const yesterdayGain=
+previous
+?.dailyGain||
+0;
+
+const gainDifference=
+dailyGain-
+yesterdayGain;
+
+return{
+
+...song,
+previousStreams,
+dailyGain,
+yesterdayGain,
+gainDifference,
+
+formattedStreams:
+formatNumber(
+song.streams
+),
+
+formattedDailyGain:
+dailyGain>0
+? `+${formatNumber(
+dailyGain
+)}`
+: "0",
+
+formattedGainDifference:
+gainDifference>0
+? `+${formatNumber(
+gainDifference
+)}`
+: formatNumber(
+gainDifference
+)
+
+};
+
+}
+);
 const songMap=
 new Map();
 
@@ -530,8 +624,8 @@ key
 );
 
 if(
-!existing ||
-song.streams >
+!existing||
+song.streams>
 existing.streams
 ){
 
@@ -550,215 +644,215 @@ Array.from(
 songMap.values()
 );
 
-const uniqueSongs =
-      Array.from(
-        songMap.values()
-      );
+const totalDailyGain=
+uniqueSongs.reduce(
+(sum,song)=>
+sum+
+(song.dailyGain||0),
+0
+);
 
-    const totalDailyGain =
-      uniqueSongs.reduce(
-        (sum, song) =>
-          sum +
-          (song.dailyGain ||
-            0),
-        0
-      );
+const previousHistory=
+history[
+history.length-1
+];
 
-    const previousHistory =
-      history[
-        history.length - 1
-      ];
+const previousTotal=
+previousHistory
+?.totalStreams||0;
 
-    const previousTotal =
-      previousHistory
-        ?.totalStreams ||
-      23773828852;
+const totalStreams=
+previousTotal+
+totalDailyGain;
 
-    const totalStreams =
-      previousTotal +
-      totalDailyGain;
+const sortedSongs=
+uniqueSongs.sort(
+(a,b)=>
+b.streams-
+a.streams
+);
 
-    const sortedSongs =
-      uniqueSongs.sort(
-        (a, b) =>
-          b.streams -
-          a.streams
-      );
+const releaseMap=
+new Map();
 
-    const releaseMap =
-      new Map();
+sortedSongs.forEach(
+song=>{
 
-    sortedSongs.forEach(
-      song => {
-        const key =
-          song.release;
+const key=
+song.release;
 
-        if (
-          !releaseMap.has(
-            key
-          )
-        ) {
-          releaseMap.set(
-            key,
-            {
-              title:
-                song.release,
-              type:
-                song.releaseType,
-              image:
-                song.image,
-              streams: 0,
-              dailyGain: 0,
-              songs: []
-            }
-          );
-        }
+if(
+!releaseMap.has(
+key
+)
+){
 
-        const release =
-          releaseMap.get(
-            key
-          );
+releaseMap.set(
+key,
+{
+title:
+song.release,
+type:
+song.releaseType,
+image:
+song.image,
+streams:0,
+dailyGain:0,
+songs:[]
+}
+);
 
-        release.streams +=
-          song.streams ||
-          0;
+}
 
-        release.dailyGain +=
-          song.dailyGain ||
-          0;
+const release=
+releaseMap.get(
+key
+);
 
-        release.songs.push(
-          song
-        );
-      });
+release.streams+=
+song.streams||0;
 
-    const final = {
-      updated:
-        getTodayDate(),
+release.dailyGain+=
+song.dailyGain||0;
 
-      spotifyUpdated:
-        true,
+release.songs.push(
+song
+);
 
-      artist: {
-        name: "Jimin",
+}
+);
 
-        followers:
-          artistStats.followers,
+const final={
+updated:
+getTodayDate(),
 
-        formattedFollowers:
-          formatNumber(
-            artistStats.followers
-          ),
+spotifyUpdated:
+true,
 
-        monthlyListeners:
-          artistStats.monthlyListeners,
+artist:{
+name:"Jimin",
 
-        formattedMonthlyListeners:
-          formatNumber(
-            artistStats.monthlyListeners
-          )
-      },
+followers:
+artistStats.followers,
 
-      summary: {
-        totalStreams,
+formattedFollowers:
+formatNumber(
+artistStats.followers
+),
 
-        formattedStreams:
-          formatNumber(
-            totalStreams
-          ),
+monthlyListeners:
+artistStats.monthlyListeners,
 
-        totalDailyGain,
+formattedMonthlyListeners:
+formatNumber(
+artistStats.monthlyListeners
+)
+},
 
-        formattedDailyGain:
-          `+${formatNumber(
-            totalDailyGain
-          )}`
-      },
+summary:{
+totalStreams,
 
-      songs:
-        sortedSongs,
+formattedStreams:
+formatNumber(
+totalStreams
+),
 
-      releases:
-        Array.from(
-          releaseMap.values()
-        ).sort(
-          (a, b) =>
-            b.streams -
-            a.streams
-        )
-    };
+totalDailyGain,
 
-    saveJSON(
-      COUNTER_FILE,
-      final
-    );
+formattedDailyGain:
+`+${formatNumber(
+totalDailyGain
+)}`
+},
 
-    saveJSON(
-      SNAPSHOT_FILE,
-      {
-        updated:
-          getTodayDate(),
+songs:
+sortedSongs,
 
-        sentinel:
-          sentinelSong,
+releases:
+Array.from(
+releaseMap.values()
+).sort(
+(a,b)=>
+b.streams-
+a.streams
+)
+};
 
-        songs:
-          processedSongs.map(
-            song => ({
-              title:
-                song.title,
+saveJSON(
+COUNTER_FILE,
+final
+);
 
-              streams:
-                song.streams,
+saveJSON(
+SNAPSHOT_FILE,
+{
+updated:
+getTodayDate(),
 
-              dailyGain:
-                song.dailyGain
-            })
-          )
-      }
-    );
+sentinel:
+sentinelSong,
 
-    history.push({
-      date:
-        getTodayDate(),
+songs:
+processedSongs.map(
+song=>({
+title:
+song.title,
 
-      sentinel:
-        sentinelSong
-          .streams,
+streams:
+song.streams,
 
-      totalStreams,
+dailyGain:
+song.dailyGain
+})
+)
+}
+);
 
-      totalDailyGain
-    });
+history.push({
+date:
+getTodayDate(),
 
-    saveJSON(
-      HISTORY_FILE,
-      history
-    );
+sentinel:
+sentinelSong
+.streams,
 
-    console.log(
-      "🔥 counter.json generated"
-    );
-  } catch (err) {
-    console.log(
-      "STATUS:",
-      err.response
-        ?.status
-    );
+totalStreams,
 
-    console.log(
-      JSON.stringify(
-        err.response
-          ?.data,
-        null,
-        2
-      )
-    );
+totalDailyGain
+});
 
-    console.error(
-      err.message
-    );
-  }
+saveJSON(
+HISTORY_FILE,
+history
+);
+
+console.log(
+"🔥 counter.json generated"
+);
+
+}catch(err){
+
+console.log(
+"STATUS:",
+err.response
+?.status
+);
+
+console.log(
+JSON.stringify(
+err.response
+?.data,
+null,
+2
+)
+);
+
+console.error(
+err.message
+);
+
+}
+
 }
 
 generateCounter();
