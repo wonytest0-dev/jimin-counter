@@ -683,12 +683,12 @@
       "releaseType": "EP",
       "image": "https://i.scdn.co/image/ab67616d00001e022b46078245d0120690eb560d",
       "previousStreams": 125563880,
-      "dailyGain": 0,
-      "yesterdayGain": 0,
-      "gainDifference": 0,
+      "dailyGain": 20000,
+      "yesterdayGain": 19532,
+      "gainDifference": 468,
       "formattedStreams": "125.6M",
-      "formattedDailyGain": "0",
-      "formattedGainDifference": "0"
+      "formattedDailyGain": "+20k",
+      "formattedGainDifference": "+468"
     },
     {
       "title": "Interlude : Showtime",
@@ -698,12 +698,12 @@
       "releaseType": "ALBUM",
       "image": "https://i.scdn.co/image/ab67616d00001e02f150d9f2e5e8148e5032fd7d",
       "previousStreams": 121627681,
-      "dailyGain": 0,
-      "yesterdayGain": 0,
-      "gainDifference": 0,
+      "dailyGain": 59304,
+      "yesterdayGain": 60071,
+      "gainDifference": -767,
       "formattedStreams": "121.6M",
-      "formattedDailyGain": "0",
-      "formattedGainDifference": "0"
+      "formattedDailyGain": "+59.3k",
+      "formattedGainDifference": "-767"
     },
     {
       "title": "Interlude : Showtime",
@@ -713,12 +713,12 @@
       "releaseType": "ALBUM",
       "image": "https://i.scdn.co/image/ab67616d00001e0282601539d4a27061ad90eacb",
       "previousStreams": 121627681,
-      "dailyGain": 0,
-      "yesterdayGain": 0,
-      "gainDifference": 0,
+       "dailyGain": 59304,
+      "yesterdayGain": 60071,
+      "gainDifference": -767,
       "formattedStreams": "121.6M",
-      "formattedDailyGain": "0",
-      "formattedGainDifference": "0"
+      "formattedDailyGain": "+59.3k",
+      "formattedGainDifference": "-767"
     },
     {
       "title": "Interlude : Showtime",
@@ -729,11 +729,12 @@
       "image": "https://i.scdn.co/image/ab67616d00001e02f02c451189a709b9a952aaec",
       "previousStreams": 121627681,
       "dailyGain": 0,
-      "yesterdayGain": 0,
-      "gainDifference": 0,
+      "dailyGain": 59304,
+      "yesterdayGain": 60071,
+      "gainDifference": -767,
       "formattedStreams": "121.6M",
-      "formattedDailyGain": "0",
-      "formattedGainDifference": "0"
+      "formattedDailyGain": "+59.3k",
+      "formattedGainDifference": "-767"
     },
     {
       "title": "Who (Rock Remix)",
@@ -1217,12 +1218,12 @@
           "releaseType": "ALBUM",
           "image": "https://i.scdn.co/image/ab67616d00001e02f150d9f2e5e8148e5032fd7d",
           "previousStreams": 121627681,
-          "dailyGain": 0,
-          "yesterdayGain": 0,
-          "gainDifference": 0,
-          "formattedStreams": "121.6M",
-          "formattedDailyGain": "0",
-          "formattedGainDifference": "0"
+           "dailyGain": 59304,
+      "yesterdayGain": 60071,
+      "gainDifference": -767,
+      "formattedStreams": "121.6M",
+      "formattedDailyGain": "+59.3k",
+      "formattedGainDifference": "-767"
         },
         {
           "title": "Who (Rock Remix)",
@@ -1376,12 +1377,12 @@
           "releaseType": "ALBUM",
           "image": "https://i.scdn.co/image/ab67616d00001e0282601539d4a27061ad90eacb",
           "previousStreams": 121627681,
-          "dailyGain": 0,
-          "yesterdayGain": 0,
-          "gainDifference": 0,
-          "formattedStreams": "121.6M",
-          "formattedDailyGain": "0",
-          "formattedGainDifference": "0"
+           "dailyGain": 59304,
+      "yesterdayGain": 60071,
+      "gainDifference": -767,
+      "formattedStreams": "121.6M",
+      "formattedDailyGain": "+59.3k",
+      "formattedGainDifference": "-767"
         },
         {
           "title": "Who (Shibuyakei Remix)",
@@ -1535,12 +1536,12 @@
           "releaseType": "ALBUM",
           "image": "https://i.scdn.co/image/ab67616d00001e02f02c451189a709b9a952aaec",
           "previousStreams": 121627681,
-          "dailyGain": 0,
-          "yesterdayGain": 0,
-          "gainDifference": 0,
-          "formattedStreams": "121.6M",
-          "formattedDailyGain": "0",
-          "formattedGainDifference": "0"
+          "dailyGain": 59304,
+      "yesterdayGain": 60071,
+      "gainDifference": -767,
+      "formattedStreams": "121.6M",
+      "formattedDailyGain": "+59.3k",
+      "formattedGainDifference": "-767"
         }
       ]
     },
