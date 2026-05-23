@@ -2,153 +2,65 @@ const fs=require("fs");
 const axios=require("axios");
 const {chromium}=require("playwright");
 
-const ARTIST_ID=
-"1oSPZhvZMIrWW5I41kPkkY";
+const ARTIST_ID="1oSPZhvZMIrWW5I41kPkkY";
+const ARTIST_URI=`spotify:artist:${ARTIST_ID}`;
+const SENTINEL_SONG="Who";
 
-const ARTIST_URI=
-`spotify:artist:${ARTIST_ID}`;
+const SNAPSHOT_FILE="spotify-snapshot.json";
+const HISTORY_FILE="spotify-history.json";
+const COUNTER_FILE="counter.json";
 
-const SENTINEL_SONG=
-"Who";
+const DISCOGRAPHY_HASH="5e07d323febb57b4a56a42abbf781490e58764aa45feb6e3dc0591564fc56599";
+const TRACKS_HASH="b9bfabef66ed756e5e13f68a942deb60bd4125ec1f1be8cc42769dc0259b4b10";
 
-const SENTINEL_TRACK_ID=
-"7tI8dRuH2Yc6RuoTjxo4dU";
+function formatNumber(num){
+if(!num)return"0";
 
-const SNAPSHOT_FILE=
-"spotify-snapshot.json";
-
-const HISTORY_FILE=
-"spotify-history.json";
-
-const COUNTER_FILE=
-"counter.json";
-
-const DISCOGRAPHY_HASH=
-"5e07d323febb57b4a56a42abbf781490e58764aa45feb6e3dc0591564fc56599";
-
-const TRACKS_HASH=
-"b9bfabef66ed756e5e13f68a942deb60bd4125ec1f1be8cc42769dc0259b4b10";
-
-function formatNumber(
-num
-){
-
-if(!num)
-return"0";
-
-if(
-num>=
-1_000_000_000
-){
-
-return(
-(num/
-1_000_000_000)
-.toFixed(2)
-.replace(
-/\.00$/,
-""
-)
-)+"B";
-
+if(num>=1_000_000_000){
+return((num/1_000_000_000).toFixed(2).replace(/\.00$/,""))+"B";
 }
 
-if(
-num>=
-1_000_000
-){
-
-return(
-(num/
-1_000_000)
-.toFixed(1)
-.replace(
-/\.0$/,
-""
-)
-)+"M";
-
+if(num>=1_000_000){
+return((num/1_000_000).toFixed(1).replace(/\.0$/,""))+"M";
 }
 
-if(
-num>=1000
-){
-
-return(
-(num/1000)
-.toFixed(1)
-.replace(
-/\.0$/,
-""
-)
-)+"K";
-
+if(num>=1000){
+return((num/1000).toFixed(1).replace(/\.0$/,""))+"K";
 }
 
-return
-num.toString();
-
+return num.toString();
 }
 
-function readJSON(
-path,
-fallback=null
-){
-
+function readJSON(path,fallback=null){
 try{
 
-if(
-fs.existsSync(
-path
-)
-){
-
+if(fs.existsSync(path)){
 return JSON.parse(
-fs.readFileSync(
-path,
-"utf8"
-)
+fs.readFileSync(path,"utf8")
 );
-
 }
 
 return fallback;
 
 }catch{
-
 return fallback;
-
+}
 }
 
-}
-
-function saveJSON(
-path,
-data
-){
-
+function saveJSON(path,data){
 fs.writeFileSync(
 path,
-JSON.stringify(
-data,
-null,
-2
-)
+JSON.stringify(data,null,2)
 );
-
 }
 
 function getTodayDate(){
-
-return new Date()
-.toLocaleDateString(
+return new Date().toLocaleDateString(
 "en-CA",
 {
-timeZone:
-"Asia/Jakarta"
+timeZone:"Asia/Jakarta"
 }
 );
-
 }
 
 async function getSpotifyAuth(){
@@ -175,8 +87,7 @@ page.on(
 request=>{
 
 if(
-request.url()
-.includes(
+request.url().includes(
 "api-partner.spotify.com"
 )
 ){
@@ -185,28 +96,17 @@ const headers=
 request.headers();
 
 const auth=
-headers[
-"authorization"
-];
+headers["authorization"];
 
 const client=
-headers[
-"client-token"
-];
+headers["client-token"];
 
-if(
-auth
-?.startsWith(
-"Bearer"
-)
-){
-authToken=
-auth;
+if(auth?.startsWith("Bearer")){
+authToken=auth;
 }
 
 if(client){
-clientToken=
-client;
+clientToken=client;
 }
 
 }
@@ -272,38 +172,26 @@ variables,
 extensions:{
 persistedQuery:{
 version:1,
-sha256Hash:
-hash
+sha256Hash:hash
 }
 }
 },
 {
 headers:{
-accept:
-"application/json",
-authorization:
-authToken,
-"client-token":
-clientToken,
-"app-platform":
-"WebPlayer",
-"content-type":
-"application/json",
-origin:
-"https://open.spotify.com",
-referer:
-"https://open.spotify.com/",
-"spotify-app-version":
-"1.2.91.173.g0dd46a9b",
-"user-agent":
-"Mozilla/5.0"
+accept:"application/json",
+authorization:authToken,
+"client-token":clientToken,
+"app-platform":"WebPlayer",
+"content-type":"application/json",
+origin:"https://open.spotify.com",
+referer:"https://open.spotify.com/",
+"spotify-app-version":"1.2.91.173.g0dd46a9b",
+"user-agent":"Mozilla/5.0"
 }
 }
 );
 
-return
-response.data;
-
+return response.data;
 }
 
 async function getAllReleases(
@@ -317,12 +205,10 @@ authToken,
 clientToken,
 "queryArtistDiscographyAll",
 {
-uri:
-ARTIST_URI,
+uri:ARTIST_URI,
 offset:0,
 limit:100,
-order:
-"DATE_DESC"
+order:"DATE_DESC"
 },
 DISCOGRAPHY_HASH
 );
@@ -354,8 +240,7 @@ authToken,
 clientToken,
 "queryAlbumTracks",
 {
-uri:
-release.uri,
+uri:release.uri,
 offset:0,
 limit:300
 },
@@ -371,14 +256,10 @@ data
 ?.map(
 item=>({
 
-title:
-item.track.name,
+title:item.track.name,
 
-streams:
-Number(
-item.track
-.playcount
-||0
+streams:Number(
+item.track.playcount||0
 ),
 
 trackId:
@@ -392,11 +273,9 @@ releaseType:
 release.type,
 
 image:
-release
-.coverArt
+release.coverArt
 ?.sources?.[0]
-?.url
-||null
+?.url||null
 
 })
 )||[]
@@ -415,23 +294,12 @@ authToken,
 clientToken,
 "queryNpvArtist",
 {
-artistUri:
-ARTIST_URI,
-
-trackUri:
-`spotify:track:${SENTINEL_TRACK_ID}`,
-
-contributorsLimit:
-10,
-
-contributorsOffset:
-0,
-
-enableRelatedVideos:
-false,
-
-enableRelatedAudioTracks:
-false
+artistUri:ARTIST_URI,
+trackUri:"spotify:track:7tI8dRuH2Yc6RuoTjxo4dU",
+contributorsLimit:10,
+contributorsOffset:0,
+enableRelatedVideos:false,
+enableRelatedAudioTracks:false
 },
 "b2cedf7ed0f29c713567d97ed69b848c8387294edfe58a0e439a3a5669cc27bb"
 );
@@ -440,8 +308,7 @@ return(
 data
 ?.data
 ?.artistUnion
-?.stats
-||{}
+?.stats||{}
 );
 
 }
@@ -462,9 +329,9 @@ SENTINEL_SONG
 
 &&
 
-song.trackId
+song.release
 ===
-SENTINEL_TRACK_ID
+"MUSE"
 
 );
 
@@ -482,11 +349,10 @@ snapshot
 song=>
 song.title===
 title
-)
-||null
+)||null
 );
 
-  }
+}
 
 async function generateCounter(){
 
@@ -503,19 +369,15 @@ clientToken
 await getSpotifyAuth();
 
 if(!authToken){
-
 throw new Error(
 "No Spotify auth token found"
 );
-
 }
 
 if(!clientToken){
-
 throw new Error(
 "No client token found"
 );
-
 }
 
 console.log(
@@ -527,15 +389,9 @@ console.log(
 );
 
 const museRelease={
-uri:
-"spotify:album:15XcLhiVMlSOipUddTNDnr",
-
-name:
-"MUSE",
-
-type:
-"ALBUM",
-
+uri:"spotify:album:15XcLhiVMlSOipUddTNDnr",
+name:"MUSE",
+type:"ALBUM",
 coverArt:{
 sources:[]
 }
@@ -555,24 +411,22 @@ track=>
 track.title
 .trim()
 .toLowerCase()
-==="who"
+===
+SENTINEL_SONG
+.toLowerCase()
 
 &&
 
-track.trackId
+track.release
 ===
-SENTINEL_TRACK_ID
+"MUSE"
 
 );
 
-if(
-!sentinelSong
-){
-
+if(!sentinelSong){
 throw new Error(
 "Who not found"
 );
-
 }
 
 const snapshot=
@@ -590,12 +444,12 @@ const previousWho=
 snapshot
 ?.sentinel
 ?.streams
-?? 0;
+??0;
 
 const currentWho=
 sentinelSong
 ?.streams
-?? 0;
+??0;
 
 if(
 previousWho
@@ -609,7 +463,6 @@ ${currentWho}`
 );
 
 return;
-
 }
 
 console.log(
@@ -672,31 +525,24 @@ previous
 song.streams;
 
 const dailyGain=
-song.streams
--
+song.streams-
 previousStreams;
 
 const yesterdayGain=
 previous
 ?.dailyGain
-||
-0;
+||0;
 
 const gainDifference=
-dailyGain
--
+dailyGain-
 yesterdayGain;
 
 return{
 
 ...song,
-
 previousStreams,
-
 dailyGain,
-
 yesterdayGain,
-
 gainDifference,
 
 formattedStreams:
@@ -740,10 +586,8 @@ key
 );
 
 if(
-!existing
-||
-song.streams
->
+!existing||
+song.streams>
 existing.streams
 ){
 
@@ -766,15 +610,13 @@ const totalDailyGain=
 uniqueSongs.reduce(
 (sum,song)=>
 sum+
-(song.dailyGain
-||0),
+(song.dailyGain||0),
 0
 );
 
 const previousHistory=
 history[
-history.length
--1
+history.length-1
 ];
 
 const previousTotal=
@@ -783,15 +625,13 @@ previousHistory
 ||0;
 
 const totalStreams=
-previousTotal
-+
+previousTotal+
 totalDailyGain;
 
 const sortedSongs=
 uniqueSongs.sort(
 (a,b)=>
-b.streams
--
+b.streams-
 a.streams
 );
 
@@ -815,17 +655,12 @@ key,
 {
 title:
 song.release,
-
 type:
 song.releaseType,
-
 image:
 song.image,
-
 streams:0,
-
 dailyGain:0,
-
 songs:[]
 }
 );
@@ -838,12 +673,10 @@ key
 );
 
 release.streams+=
-song.streams
-||0;
+song.streams||0;
 
 release.dailyGain+=
-song.dailyGain
-||0;
+song.dailyGain||0;
 
 release.songs.push(
 song
@@ -852,157 +685,4 @@ song
 }
 );
 
-  const final={
 
-updated:
-getTodayDate(),
-
-spotifyUpdated:
-true,
-
-artist:{
-
-name:
-"Jimin",
-
-followers:
-artistStats
-.followers,
-
-formattedFollowers:
-formatNumber(
-artistStats
-.followers
-),
-
-monthlyListeners:
-artistStats
-.monthlyListeners,
-
-formattedMonthlyListeners:
-formatNumber(
-artistStats
-.monthlyListeners
-)
-
-},
-
-summary:{
-
-totalStreams,
-
-formattedStreams:
-formatNumber(
-totalStreams
-),
-
-totalDailyGain,
-
-formattedDailyGain:
-`+${formatNumber(
-totalDailyGain
-)}`
-
-},
-
-songs:
-sortedSongs,
-
-releases:
-Array.from(
-releaseMap
-.values()
-)
-.sort(
-(a,b)=>
-b.streams
--
-a.streams
-)
-
-};
-
-saveJSON(
-COUNTER_FILE,
-final
-);
-
-saveJSON(
-SNAPSHOT_FILE,
-{
-
-updated:
-getTodayDate(),
-
-sentinel:
-sentinelSong,
-
-songs:
-processedSongs.map(
-song=>({
-
-title:
-song.title,
-
-streams:
-song.streams,
-
-dailyGain:
-song.dailyGain
-
-})
-)
-
-}
-);
-
-history.push({
-
-date:
-getTodayDate(),
-
-sentinel:
-sentinelSong
-.streams,
-
-totalStreams,
-
-totalDailyGain
-
-});
-
-saveJSON(
-HISTORY_FILE,
-history
-);
-
-console.log(
-"🔥 counter.json generated"
-);
-
-}catch(err){
-
-console.log(
-"STATUS:",
-err.response
-?.status
-);
-
-console.log(
-JSON.stringify(
-err.response
-?.data,
-null,
-2
-)
-);
-
-console.error(
-err.message
-);
-
-}
-
-}
-
-generateCounter();
