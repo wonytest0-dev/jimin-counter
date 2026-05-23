@@ -97,7 +97,6 @@ request.headers();
 
 const auth=
 headers["authorization"];
-
 const client=
 headers["client-token"];
 
@@ -257,10 +256,7 @@ data
 item=>({
 
 title:item.track.name,
-
-streams:Number(
-item.track.playcount||0
-),
+streams:Number(item.track.playcount||0),
 
 trackId:
 item.track.uri
@@ -352,7 +348,7 @@ title
 )||null
 );
 
-}
+  }
 
 async function generateCounter(){
 
@@ -571,18 +567,15 @@ gainDifference
 }
 );
 
-const songMap=
+const summarySongMap=
 new Map();
 
 processedSongs.forEach(
 song=>{
 
-const key=
-`${song.streams}-${song.dailyGain}`;
-
 const existing=
-songMap.get(
-key
+summarySongMap.get(
+song.title
 );
 
 if(
@@ -591,8 +584,8 @@ song.streams>
 existing.streams
 ){
 
-songMap.set(
-key,
+summarySongMap.set(
+song.title,
 song
 );
 
@@ -601,13 +594,13 @@ song
 }
 );
 
-const uniqueSongs=
+const summarySongs=
 Array.from(
-songMap.values()
+summarySongMap.values()
 );
 
 const totalDailyGain=
-uniqueSongs.reduce(
+summarySongs.reduce(
 (sum,song)=>
 sum+
 (song.dailyGain||0),
@@ -629,7 +622,7 @@ previousTotal+
 totalDailyGain;
 
 const sortedSongs=
-uniqueSongs.sort(
+processedSongs.sort(
 (a,b)=>
 b.streams-
 a.streams
