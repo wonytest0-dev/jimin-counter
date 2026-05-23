@@ -59,13 +59,20 @@ function getTodayDate(){
 const now=
 new Date();
 
-return new Date(
+const date=
+new Date(
 Date.UTC(
 now.getUTCFullYear(),
 now.getUTCMonth(),
 now.getUTCDate()
 )
-)
+);
+
+date.setUTCDate(
+date.getUTCDate()-1
+);
+
+return date
 .toISOString()
 .split("T")[0];
 
