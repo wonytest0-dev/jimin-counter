@@ -33,88 +33,54 @@ return num.toString();
 
 function readJSON(path,fallback=null){
 try{
-
 if(fs.existsSync(path)){
-return JSON.parse(
-fs.readFileSync(path,"utf8")
-);
+return JSON.parse(fs.readFileSync(path,"utf8"));
 }
-
 return fallback;
-
 }catch{
 return fallback;
 }
 }
 
 function saveJSON(path,data){
-fs.writeFileSync(
-path,
-JSON.stringify(data,null,2)
-);
+fs.writeFileSync(path,JSON.stringify(data,null,2));
 }
 
-function getTodayDate(){
+function getTodayDate(history=[]){
+const lastDate=history[history.length-1]?.date;
 
-const now=
-new Date();
-
-const date=
-new Date(
-Date.UTC(
-now.getUTCFullYear(),
-now.getUTCMonth(),
-now.getUTCDate()
-)
-);
-
-date.setUTCDate(
-date.getUTCDate()-1
-);
-
-return date
-.toISOString()
-.split("T")[0];
-
+if(!lastDate){
+return new Date().toISOString().split("T")[0];
 }
 
+const date=new Date(lastDate);
+date.setDate(date.getDate()+1);
+
+return date.toISOString().split("T")[0];
+}
 
 async function getSpotifyAuth(){
-
-const browser=
-await chromium.launch({
+const browser=await chromium.launch({
 headless:true
 });
 
-const context=
-await browser.newContext({
-storageState:
-"./spotify-login.json"
+const context=await browser.newContext({
+storageState:"./spotify-login.json"
 });
 
-const page=
-await context.newPage();
+const page=await context.newPage();
 
 let authToken="";
 let clientToken="";
 
-page.on(
-"request",
-request=>{
+page.on("request",request=>{
 
-if(
-request.url().includes(
-"api-partner.spotify.com"
-)
-){
+if(request.url().includes("api-partner.spotify.com")){
 
-const headers=
-request.headers();
+const headers=request.headers();
 
-const auth=
-headers["authorization"];
-const client=
-headers["client-token"];
+const auth=headers["authorization"];
+const client=headers["client-token"];
 
 if(auth?.startsWith("Bearer")){
 authToken=auth;
@@ -126,40 +92,29 @@ clientToken=client;
 
 }
 
-}
-);
+});
 
-console.log(
-"🌐 opening spotify..."
-);
+console.log("🌐 opening spotify...");
 
 await page.goto(
 "https://open.spotify.com",
 {
-waitUntil:
-"domcontentloaded"
+waitUntil:"domcontentloaded"
 }
 );
 
-await page.waitForTimeout(
-5000
-);
+await page.waitForTimeout(5000);
 
-console.log(
-"🎧 opening artist..."
-);
+console.log("🎧 opening artist...");
 
 await page.goto(
 `https://open.spotify.com/artist/${ARTIST_ID}`,
 {
-waitUntil:
-"networkidle"
+waitUntil:"networkidle"
 }
 );
 
-await page.waitForTimeout(
-8000
-);
+await page.waitForTimeout(8000);
 
 await browser.close();
 
@@ -178,8 +133,7 @@ variables,
 hash
 ){
 
-const response=
-await axios.post(
+const response=await axios.post(
 "https://api-partner.spotify.com/pathfinder/v2/query",
 {
 operationName,
@@ -207,8 +161,7 @@ referer:"https://open.spotify.com/",
 );
 
 return response.data;
-}
-
+  }
 async function getAllReleases(
 authToken,
 clientToken
@@ -351,7 +304,8 @@ song.release
 
 function getPreviousSong(
 snapshot,
-title
+title,
+trackId
 ){
 
 return(
@@ -359,12 +313,19 @@ snapshot
 ?.songs
 ?.find(
 song=>
+
 song.title===
 title
+
+&&
+
+song.trackId===
+trackId
+
 )||null
 );
 
-  }
+}
 
 async function generateCounter(){
 
@@ -439,9 +400,8 @@ if(!sentinelSong){
 throw new Error(
 "Who not found"
 );
-}
-
-const snapshot=
+  }
+  const snapshot=
 readJSON(
 SNAPSHOT_FILE
 );
@@ -527,7 +487,8 @@ song=>{
 const previous=
 getPreviousSong(
 snapshot,
-song.title
+song.title,
+song.trackId
 );
 
 const previousStreams=
@@ -697,7 +658,7 @@ song
 const final={
 
 updated:
-getTodayDate(),
+getTodayDate(history),
 
 spotifyUpdated:
 true,
@@ -761,7 +722,7 @@ saveJSON(
 SNAPSHOT_FILE,
 {
 updated:
-getTodayDate(),
+getTodayDate(history),
 
 sentinel:
 sentinelSong,
@@ -771,6 +732,12 @@ processedSongs.map(
 song=>({
 title:
 song.title,
+
+trackId:
+song.trackId,
+
+release:
+song.release,
 
 streams:
 song.streams,
@@ -784,7 +751,7 @@ song.dailyGain
 
 history.push({
 date:
-getTodayDate(),
+getTodayDate(history),
 
 sentinel:
 sentinelSong.streams,
